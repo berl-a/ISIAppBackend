@@ -55,4 +55,6 @@ public class ClientControllerV1 {
         List<Client> list = clientService.findAll();
         return ResponseEntity.ok(list);
     }
+
+    //todo /rideHistory
 }

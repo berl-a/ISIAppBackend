@@ -1,9 +1,10 @@
 package com.berla.pwrapps.isiapp.rest
 
-import com.berla.pwrapps.isiapp.dto.ClientDto
+
 import com.berla.pwrapps.isiapp.dto.GetCostDto
-import com.berla.pwrapps.isiapp.model.Client
 import com.berla.pwrapps.isiapp.dto.GetCostReturnDto
+import com.berla.pwrapps.isiapp.dto.RideDtoWithoutLinks
+import com.berla.pwrapps.isiapp.model.Ride
 import com.berla.pwrapps.isiapp.service.RideService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -18,35 +19,44 @@ import javax.validation.Valid
 @RequestMapping("/rides/")
 public class RideControllerV1 {
 
+    private final RideService rideService;
+
     @Autowired
-    RideService rideService;
+    public RideControllerV1(RideService rideService) {
+        this.rideService = rideService;
+    }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addClient(@RequestBody ClientDto user) {
-        Long addedId = 0L;
-        return ResponseEntity.ok("Added with id = " + addedId);
+    public ResponseEntity<String> addRide(@RequestBody RideDtoWithoutLinks ride) {
+        Long addedRideId = rideService.save(ride);
+        return ResponseEntity.ok("Ride added with id = " + addedRideId);
     }
 
     @DeleteMapping("/remove")
     public ResponseEntity<String> delete(@RequestParam("id") Long id) {
-        return ResponseEntity.ok("Deleted");
+        rideService.deleteById(id);
+        return ResponseEntity.ok("Ride deleted");
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<?> update(@RequestParam("id") Long id, @RequestBody ClientDto user) {
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.TEXT_PLAIN).body("Client updated successfully");
+    public ResponseEntity<?> update(@RequestParam("id") Long id, @RequestBody RideDtoWithoutLinks user) {
+        rideService.update(id, user);
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.TEXT_PLAIN).body("Ride updated successfully");
     }
 
     @GetMapping("/get")
     public ResponseEntity<?> get(@RequestParam("id") Long id) {
-        HashMap<String, String> resObj = [:];
-        resObj.firstName = "FirstName";
-        return ResponseEntity.ok(resObj);
+        RideDtoWithoutLinks userDto = rideService.findById(id);
+        if(userDto != null)
+            return ResponseEntity.ok(userDto);
+        else
+            return ResponseEntity.ok("Ride not found");
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Client>> getAllRides() {
-        return ResponseEntity.ok(new LinkedList<>());
+    public ResponseEntity<List<Ride>> getRides() {
+        List<Ride> list = rideService.findAll();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/getCost")

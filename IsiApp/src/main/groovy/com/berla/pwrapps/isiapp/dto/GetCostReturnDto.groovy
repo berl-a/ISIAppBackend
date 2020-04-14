@@ -1,16 +1,23 @@
 package com.berla.pwrapps.isiapp.dto
 
+import lombok.NoArgsConstructor
+
+@NoArgsConstructor
 class GetCostReturnDto {
+
+    GetCostReturnDto() {
+
+    }
 
     GetCostReturnDto(String distance, String duration, String status) {
         this.distance = distance
         this.duration = duration
         this.status = status
     }
-
     private String distance;
     private String duration;
     private String status;
+
     private double price;
 
     String getDistance() {

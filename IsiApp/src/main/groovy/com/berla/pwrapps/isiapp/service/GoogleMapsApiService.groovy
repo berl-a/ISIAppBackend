@@ -31,12 +31,15 @@ class GoogleMapsApiService {
 
         log.debug("Return from google maps distance matrix api is " + returnFromApi)
 
-        String distance = returnFromApi.rows[0].elements[0].distance.text;
-        String duration = returnFromApi.rows[0].elements[0].duration.text;
-        String status = returnFromApi.rows[0].elements[0].status;
-        println distance + " " + duration + " " + status
+        if(returnFromApi.rows[0] != null) {
+            String distance = returnFromApi.rows[0].elements[0].distance.text;
+            String duration = returnFromApi.rows[0].elements[0].duration.text;
+            String status = returnFromApi.rows[0].elements[0].status;
+            println distance + " " + duration + " " + status
 
-        new GetCostReturnDto(distance, duration, status)
+            return new GetCostReturnDto(distance, duration, status)
+        }
+        null
     }
 
     /**

@@ -14,6 +14,12 @@ public class Client extends BaseEntity {
     private String firstName;
     private String lastName;
 
+    @OneToMany(mappedBy="client")
+    private List<Ride> rides;
+
+    Client() {
+    }
+
     /**
      * Constructor to create Client object from ClientDto object
      * @param clientDto ClientDto object
