@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*
 
 import javax.validation.Valid
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
-@RequestMapping("/rides/")
+@RequestMapping(value = "/ride/")
 public class RideControllerV1 {
 
     private final RideService rideService;
