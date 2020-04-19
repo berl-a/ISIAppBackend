@@ -23,14 +23,11 @@ public class DriverServiceImpl implements DriverService {
     public static final String DRIVER_AND_CAR_NOT_FOUND = "Driver and car not found";
     public static final String DRIVER_NOT_FOUND = "Driver not found";
     public static final String CAR_NOT_FOUND = "Car not found";
-    private final DriverRepository driverRepository;
-    private final CarService carService;
 
     @Autowired
-    public DriverServiceImpl(DriverRepository driverRepository, CarService carService) {
-        this.driverRepository = driverRepository;
-        this.carService = carService;
-    }
+    private DriverRepository driverRepository;
+    @Autowired
+    private CarService carService;
 
     @Override
     public Long save(Driver driver) {

@@ -40,18 +40,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/ride/**"
                 ).hasAnyAuthority("ADMIN", "USER_APP")
-//                .antMatchers(
-//                    "/ride/add",
-//                        "/ride/get",
-//                        "/ride/getAll",
-//                        "/ride/getCost"
-//                ).hasRole("USER_APP")
-//                .antMatchers(
-//                        "/ride/get",
-//                        "/ride/getAll",
-//                        "/ride/accept",
-//                        "/ride/decline"
-//                ).hasRole("DRIVER_APP")
+                .antMatchers(
+                    "/ride/add",
+                        "/ride/get",
+                        "/ride/getAll",
+                        "/ride/getCost"
+                ).hasRole("USER_APP")
+                .antMatchers(
+                        "/ride/get",
+                        "/ride/getAll",
+                        "/ride/accept",
+                        "/ride/decline"
+                ).hasRole("DRIVER_APP")
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

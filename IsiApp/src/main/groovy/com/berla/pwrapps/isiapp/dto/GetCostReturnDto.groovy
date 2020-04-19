@@ -1,8 +1,5 @@
 package com.berla.pwrapps.isiapp.dto
 
-import lombok.NoArgsConstructor
-
-@NoArgsConstructor
 class GetCostReturnDto {
 
     GetCostReturnDto() {

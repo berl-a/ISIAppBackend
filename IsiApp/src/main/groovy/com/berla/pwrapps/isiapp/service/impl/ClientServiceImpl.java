@@ -5,6 +5,7 @@ import com.berla.pwrapps.isiapp.model.Client;
 import com.berla.pwrapps.isiapp.repository.ClientRepository;
 import com.berla.pwrapps.isiapp.service.ClientService;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,9 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(ClientServiceImpl.class);
-    final ClientRepository clientRepository;
 
-    public ClientServiceImpl(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Override
     public Long save(Client client) {

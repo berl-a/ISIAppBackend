@@ -14,8 +14,10 @@
 	<name>IsiApp</name>
 	<description>Project for ISI</description>
 
+    <packaging>war</packaging>
+
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
         <jsonwebtoken.version>0.8.0</jsonwebtoken.version>
 	</properties>
 
@@ -24,13 +26,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-            <version>2.4.12</version>
-		</dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>3.0.0</version>
+            <type>pom</type>
+        </dependency>
 
-		<dependency>
+
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -144,41 +149,39 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
-	<build>
+    <build>
+        <finalName>isi-app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.berla.pwrapps.isiapp.IsiAppApplication</mainClass>
+                </configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.8.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>addSources</goal>
-							<goal>addTestSources</goal>
-							<goal>generateStubs</goal>
-							<goal>compile</goal>
-							<goal>generateTestStubs</goal>
-							<goal>compileTests</goal>
-							<goal>removeStubs</goal>
-							<goal>removeTestStubs</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.codehaus.gmavenplus</groupId>-->
+<!--				<artifactId>gmavenplus-plugin</artifactId>-->
+<!--				<version>1.8.1</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>addSources</goal>-->
+<!--							<goal>addTestSources</goal>-->
+<!--							<goal>generateStubs</goal>-->
+<!--							<goal>compile</goal>-->
+<!--							<goal>generateTestStubs</goal>-->
+<!--							<goal>compileTests</goal>-->
+<!--							<goal>removeStubs</goal>-->
+<!--							<goal>removeTestStubs</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 

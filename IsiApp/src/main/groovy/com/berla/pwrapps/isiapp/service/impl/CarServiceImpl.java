@@ -5,6 +5,7 @@ import com.berla.pwrapps.isiapp.model.Car;
 import com.berla.pwrapps.isiapp.repository.CarRepository;
 import com.berla.pwrapps.isiapp.service.CarService;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,9 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(CarServiceImpl.class);
-    final CarRepository carRepository;
 
-    public CarServiceImpl(CarRepository carRepository) {
-        this.carRepository = carRepository;
-    }
+    @Autowired
+    private CarRepository carRepository;
 
     @Override
     public Long save(Car car) {

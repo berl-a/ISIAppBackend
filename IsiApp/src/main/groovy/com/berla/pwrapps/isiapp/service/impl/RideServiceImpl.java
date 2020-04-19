@@ -8,6 +8,7 @@ import com.berla.pwrapps.isiapp.repository.RideRepository;
 import com.berla.pwrapps.isiapp.service.GoogleMapsApiService;
 import com.berla.pwrapps.isiapp.service.RideService;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +23,10 @@ public class RideServiceImpl implements RideService {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(RideServiceImpl.class);
 
-    private final GoogleMapsApiService googleMapsApiService;
-    private final RideRepository rideRepository;
-
-    public RideServiceImpl(RideRepository rideRepository, GoogleMapsApiService googleMapsApiService) {
-        this.rideRepository = rideRepository;
-        this.googleMapsApiService = googleMapsApiService;
-    }
+    @Autowired
+    private GoogleMapsApiService googleMapsApiService;
+    @Autowired
+    private RideRepository rideRepository;
 
     @Override
     public Long save(Ride ride) {
