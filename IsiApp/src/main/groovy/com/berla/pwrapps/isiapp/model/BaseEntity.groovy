@@ -30,4 +30,28 @@ public class BaseEntity {
     void setId(Long id) {
         this.id = id
     }
+
+    Date getCreated() {
+        return created
+    }
+
+    void setCreated(Date created) {
+        this.created = created
+    }
+
+    Date getUpdated() {
+        return updated
+    }
+
+    void setUpdated(Date updated) {
+        this.updated = updated
+    }
+
+    Status getStatus() {
+        return status
+    }
+
+    void setStatus(Status status) {
+        this.status = status
+    }
 }

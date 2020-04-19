@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/clients/")
+@RequestMapping("/client/")
 public class ClientControllerV1 {
 
     private final ClientService clientService;
