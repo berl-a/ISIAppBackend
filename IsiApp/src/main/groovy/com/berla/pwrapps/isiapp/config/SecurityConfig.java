@@ -31,27 +31,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .httpBasic().disable()
+                .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_REGISTER_ENDPOINTS).permitAll()
                 .antMatchers(
-                        "/ride/getAll"
-                ).permitAll()
-                .antMatchers(
-                    "/ride/add",
-                        "/ride/get",
-                        "/ride/getAll",
-                        "/ride/getCost"
-                ).hasRole("USER_APP")
-                .antMatchers(
-                        "/ride/get",
-                        "/ride/getAll",
-                        "/ride/accept",
-                        "/ride/decline"
-                ).hasRole("DRIVER_APP")
+                        "/ride/**"
+                ).hasAnyAuthority("ADMIN", "USER_APP")
+//                .antMatchers(
+//                    "/ride/add",
+//                        "/ride/get",
+//                        "/ride/getAll",
+//                        "/ride/getCost"
+//                ).hasRole("USER_APP")
+//                .antMatchers(
+//                        "/ride/get",
+//                        "/ride/getAll",
+//                        "/ride/accept",
+//                        "/ride/decline"
+//                ).hasRole("DRIVER_APP")
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
