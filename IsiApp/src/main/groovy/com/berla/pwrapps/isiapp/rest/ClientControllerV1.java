@@ -43,7 +43,7 @@ public class ClientControllerV1 {
 
     @GetMapping("/get")
     public ResponseEntity<?> get(@RequestParam("id") Long id) {
-        ClientDto userDto = clientService.findById(id);
+        ClientDto userDto = clientService.findByIdDto(id);
         if(userDto != null)
             return ResponseEntity.ok(userDto);
         else

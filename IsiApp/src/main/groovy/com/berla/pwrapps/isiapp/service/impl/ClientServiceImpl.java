@@ -37,13 +37,24 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto findById(long id) {
+    public ClientDto findByIdDto(long id) {
         Client foundClient = clientRepository.findById(id).orElse(null);
         log.info("IN ClientServiceImpl: Found client by id: " + foundClient);
         if(foundClient == null) {
             return null;
         } else {
             return foundClient.toClientDto();
+        }
+    }
+
+    @Override
+    public Client findById(long id) {
+        Client foundClient = clientRepository.findById(id).orElse(null);
+        log.info("IN ClientServiceImpl: Found client by id: " + foundClient);
+        if(foundClient == null) {
+            return null;
+        } else {
+            return foundClient;
         }
     }
 

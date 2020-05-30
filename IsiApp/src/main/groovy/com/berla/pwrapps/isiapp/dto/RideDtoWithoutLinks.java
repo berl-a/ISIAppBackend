@@ -9,7 +9,11 @@ public class RideDtoWithoutLinks {
 //    Car car;
 //    Client client;
 
-    String origin;
-    String destination;
+//    String origin;
+//    String destination;
+    double originLat;
+    double originLon;
+    double destinationLat;
+    double destinationLon;
     double price;
 }

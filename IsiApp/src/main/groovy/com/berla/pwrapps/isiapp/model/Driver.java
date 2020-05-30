@@ -1,6 +1,7 @@
 package com.berla.pwrapps.isiapp.model;
 
 import com.berla.pwrapps.isiapp.dto.DriverDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class Driver extends BaseEntity {
     private String lastName;
 
     @OneToOne
-    @JoinColumn(name="driver")
+    @JoinColumn(name="car")
     private Car car;
 
     @OneToMany(mappedBy="driver")
@@ -42,5 +43,21 @@ public class Driver extends BaseEntity {
         driverDto.setFirstName(getFirstName());
         driverDto.setLastName(getLastName());
         return driverDto;
+    }
+
+    //todo check if helps upon removal
+    @JsonIgnore
+    public Car getCar() {
+        return car;
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{}";
+    }
+
+    @JsonIgnore
+    public List<Ride> getRides() {
+        return rides;
     }
 }

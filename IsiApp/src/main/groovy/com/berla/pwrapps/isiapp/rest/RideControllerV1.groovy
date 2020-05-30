@@ -1,7 +1,6 @@
 package com.berla.pwrapps.isiapp.rest
 
 
-import com.berla.pwrapps.isiapp.dto.GetCostDto
 import com.berla.pwrapps.isiapp.dto.GetCostReturnDto
 import com.berla.pwrapps.isiapp.dto.RideDtoWithoutLinks
 import com.berla.pwrapps.isiapp.model.Ride
@@ -11,9 +10,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-
-import javax.validation.Valid
-
 //@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/ride/")
@@ -42,7 +38,7 @@ public class RideControllerV1 {
     public ResponseEntity<?> update(@RequestParam("id") Long id, @RequestBody RideDtoWithoutLinks user) {
         rideService.update(id, user);
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.TEXT_PLAIN).body("Ride updated successfully");
-    }
+    }//todo add linking ride to driver
 
     @GetMapping("/get")
     public ResponseEntity<?> get(@RequestParam("id") Long id) {
@@ -60,8 +56,20 @@ public class RideControllerV1 {
     }
 
     @GetMapping("/getCost")
-    public ResponseEntity<GetCostReturnDto> getCost(@RequestBody @Valid GetCostDto getCostDao) {
-        GetCostReturnDto getCostReturnDto = rideService.getCost(getCostDao);
+    public ResponseEntity<GetCostReturnDto> getCost(@RequestParam("distance") Double distance) {
+        GetCostReturnDto getCostReturnDto = new GetCostReturnDto(rideService.getCost(distance));
         ResponseEntity.ok(getCostReturnDto)
+    }
+
+    @PostMapping("/linkToDriver")
+    public ResponseEntity<String> linkToDriver(@RequestParam("rideId") Long rideId, @RequestParam("driverId") Long driverId) {
+        String result = rideService.linkToDriver(rideId, driverId);
+        ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/linkToClient")
+    public ResponseEntity<String> linkToClient(@RequestParam("rideId") Long rideId, @RequestParam("clientId") Long clientId) {
+        String result = rideService.linkToClient(rideId, clientId);
+        ResponseEntity.ok(result);
     }
 }

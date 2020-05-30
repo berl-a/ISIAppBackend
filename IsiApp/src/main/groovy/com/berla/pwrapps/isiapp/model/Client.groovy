@@ -25,6 +25,7 @@ public class Client extends BaseEntity {
      * @param clientDto ClientDto object
      */
     public Client(ClientDto clientDto) {
+        googleId = clientDto.getGoogleId();
         firstName = clientDto.getFirstName();
         lastName = clientDto.getLastName();
     }
@@ -35,6 +36,7 @@ public class Client extends BaseEntity {
      */
     public ClientDto toClientDto() {
         ClientDto clientDto = new ClientDto();
+        clientDto.setGoogleId(getGoogleId());
         clientDto.setFirstName(getFirstName());
         clientDto.setLastName(getLastName());
         return clientDto;

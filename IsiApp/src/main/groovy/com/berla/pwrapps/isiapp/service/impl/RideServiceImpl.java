@@ -1,10 +1,12 @@
 package com.berla.pwrapps.isiapp.service.impl;
 
-import com.berla.pwrapps.isiapp.dto.GetCostDto;
-import com.berla.pwrapps.isiapp.dto.GetCostReturnDto;
 import com.berla.pwrapps.isiapp.dto.RideDtoWithoutLinks;
+import com.berla.pwrapps.isiapp.model.Client;
+import com.berla.pwrapps.isiapp.model.Driver;
 import com.berla.pwrapps.isiapp.model.Ride;
 import com.berla.pwrapps.isiapp.repository.RideRepository;
+import com.berla.pwrapps.isiapp.service.ClientService;
+import com.berla.pwrapps.isiapp.service.DriverService;
 import com.berla.pwrapps.isiapp.service.GoogleMapsApiService;
 import com.berla.pwrapps.isiapp.service.RideService;
 import org.slf4j.Logger;
@@ -27,6 +29,10 @@ public class RideServiceImpl implements RideService {
     private GoogleMapsApiService googleMapsApiService;
     @Autowired
     private RideRepository rideRepository;
+    @Autowired
+    private DriverService driverService;
+    @Autowired
+    private ClientService clientService;
 
     @Override
     public Long save(Ride ride) {
@@ -71,8 +77,10 @@ public class RideServiceImpl implements RideService {
     public synchronized void update(Long id, RideDtoWithoutLinks rideWithNewInfo) {
         Ride foundRide = rideRepository.findById(id).orElse(null);
         if(foundRide != null) {
-            foundRide.setOrigin(rideWithNewInfo.getOrigin());
-            foundRide.setDestination(rideWithNewInfo.getDestination());
+            foundRide.setOriginLat(rideWithNewInfo.getOriginLat());
+            foundRide.setOriginLon(rideWithNewInfo.getOriginLon());
+            foundRide.setDestinationLat(rideWithNewInfo.getDestinationLat());
+            foundRide.setDestinationLon(rideWithNewInfo.getDestinationLon());
             foundRide.setPrice(rideWithNewInfo.getPrice());
             rideRepository.save(foundRide);
             rideRepository.flush();
@@ -83,25 +91,44 @@ public class RideServiceImpl implements RideService {
     }
 
     @Override
-    public GetCostReturnDto getCost(GetCostDto getCostDto) {
-        GetCostReturnDto costReturnDto = googleMapsApiService.getDistanceBetweenPoints(
-                getCostDto.getOrigin(),
-                getCostDto.getDestination()
-        );
-        if(costReturnDto != null) {
-            int numberOfMeters = -1;
-            if (costReturnDto.getDistance().contains("km")) {
-                numberOfMeters = Integer.parseInt(costReturnDto.getDistance().split(" ")[0]) * 1000;
-            } else if (costReturnDto.getDistance().contains("m")) {
-                numberOfMeters = Integer.parseInt(costReturnDto.getDistance().split(" ")[0]);
-            }
-            double price = PRICE_PER_KM * ((double) numberOfMeters) / 1000.0;
-            costReturnDto.setPrice(price);
-            return costReturnDto;
-        } else {
-            GetCostReturnDto returnDto = new GetCostReturnDto();
-            returnDto.setStatus("Error fetching information from Google Distance Matrix API");
-            return returnDto;
+    public Double getCost(Double distance) {
+        return distance * 1.34;
+    }
+
+    @Override
+    public List<Ride> findByClientId(Long id) {
+        return rideRepository.findByClient(id);
+    }
+
+    @Override
+    public String linkToDriver(long rideId, long driverId) {
+        Ride foundRide = rideRepository.findById(rideId).orElse(null);
+        Driver foundDriver = driverService.findById(driverId);
+        if(foundRide != null && foundDriver != null) {
+            foundRide.setDriver(foundDriver);
+            rideRepository.save(foundRide);
+            rideRepository.flush();
+            log.info("IN RideServiceImpl: Ride updated");
+            return "SUCCESS";
+        }  else {
+            log.info("IN RideServiceImpl: Ride or driver not found during update");
+            return "RIDE OR DRIVER NOT FOUND";
+        }
+    }
+
+    @Override
+    public String linkToClient(long rideId, long clientId) {
+        Ride foundRide = rideRepository.findById(rideId).orElse(null);
+        Client foundClient = clientService.findById(clientId);
+        if(foundRide != null && foundClient != null) {
+            foundRide.setClient(foundClient);
+            rideRepository.save(foundRide);
+            rideRepository.flush();
+            log.info("IN RideServiceImpl: Ride updated");
+            return "SUCCESS";
+        }  else {
+            log.info("IN RideServiceImpl: Ride or client not found during update");
+            return "RIDE OR CLIENT NOT FOUND";
         }
     }
 

@@ -1,6 +1,7 @@
 package com.berla.pwrapps.isiapp.model;
 
 import com.berla.pwrapps.isiapp.dto.CarDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -44,5 +45,20 @@ public class Car extends BaseEntity {
         carDto.setBrand(brand);
         carDto.setModel(model);
         return carDto;
+    }
+
+    @JsonIgnore
+    public Driver getDriver() {
+        return driver;
+    }
+
+    @JsonIgnore
+    public List<Ride> getRides() {
+        return rides;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{}";
     }
 }

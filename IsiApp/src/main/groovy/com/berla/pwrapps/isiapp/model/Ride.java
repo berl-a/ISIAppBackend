@@ -26,8 +26,10 @@ public class Ride extends BaseEntity {
     @JoinColumn(name="client")
     Client client;
 
-    String origin;
-    String destination;
+    double originLat;
+    double originLon;
+    double destinationLat;
+    double destinationLon;
     double price;
 
     public Ride() {
@@ -41,8 +43,10 @@ public class Ride extends BaseEntity {
 //        driver = rideDto.getDriver();
 //        car = rideDto.getCar();
 //        client = rideDto.getClient();
-        origin = rideDto.getOrigin();
-        destination = rideDto.getOrigin();
+        originLat = rideDto.getOriginLat();
+        originLon = rideDto.getOriginLon();
+        destinationLat = rideDto.getDestinationLat();
+        destinationLon = rideDto.getDestinationLon();
         price = rideDto.getPrice();
     }
 
@@ -54,8 +58,10 @@ public class Ride extends BaseEntity {
         driver = rideDto.getDriver();
         car = rideDto.getCar();
         client = rideDto.getClient();
-        origin = rideDto.getOrigin();
-        destination = rideDto.getOrigin();
+        originLat = rideDto.getOriginLat();
+        originLon = rideDto.getOriginLon();
+        destinationLat = rideDto.getDestinationLat();
+        destinationLon = rideDto.getDestinationLon();
         price = rideDto.getPrice();
     }
 
@@ -68,8 +74,10 @@ public class Ride extends BaseEntity {
         rideDto.setDriver(driver);
         rideDto.setCar(car);
         rideDto.setClient(client);
-        rideDto.setOrigin(origin);
-        rideDto.setDestination(destination);
+        rideDto.setOriginLat(originLat);
+        rideDto.setOriginLon(originLon);
+        rideDto.setDestinationLat(destinationLat);
+        rideDto.setDestinationLon(destinationLon);
         rideDto.setPrice(price);
         return rideDto;
     }

@@ -1,9 +1,6 @@
 package com.berla.pwrapps.isiapp.rest
 
 import com.berla.pwrapps.isiapp.dto.AuthenticationRequestDto
-import com.berla.pwrapps.isiapp.dto.RegistrationRequestDto
-import com.berla.pwrapps.isiapp.model.Role
-import com.berla.pwrapps.isiapp.model.User
 import com.berla.pwrapps.isiapp.repository.RoleRepository
 import com.berla.pwrapps.isiapp.security.jwt.JwtTokenProvider
 import com.berla.pwrapps.isiapp.service.UserService
@@ -19,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-
-import java.util.stream.Collectors
 
 @RestController
 @Slf4j
@@ -67,19 +62,19 @@ public class AuthControllerV1 {
         }
     }
 
-    @PostMapping("register")
-    public ResponseEntity register(@RequestBody RegistrationRequestDto requestDto) {
-        User user = new User();
-        user.setUsername(requestDto.getUsername());
-        user.setPassword(requestDto.getPassword());
-        user.setRoles(
-                Arrays
-                        .stream(requestDto.getRoles())
-                        .map(roleRepository.&findByName)
-                        .collect(Collectors.toList())
-                        as List<Role>
-        );
-        userService.register(user, requestDto.getRoles());
-        return ResponseEntity.ok("User registered");
-    }
+//    @PostMapping("register")
+//    public ResponseEntity register(@RequestBody RegistrationRequestDto requestDto) {
+//        User user = new User();
+//        user.setUsername(requestDto.getUsername());
+//        user.setPassword(requestDto.getPassword());
+//        user.setRoles(
+//                Arrays
+//                        .stream(requestDto.getRoles())
+//                        .map(roleRepository.&findByName)
+//                        .collect(Collectors.toList())
+//                        as List<Role>
+//        );
+//        userService.register(user, requestDto.getRoles());
+//        return ResponseEntity.ok("User registered");
+//    }
 }

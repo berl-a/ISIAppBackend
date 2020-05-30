@@ -1,7 +1,5 @@
 package com.berla.pwrapps.isiapp.service;
 
-import com.berla.pwrapps.isiapp.dto.GetCostDto;
-import com.berla.pwrapps.isiapp.dto.GetCostReturnDto;
 import com.berla.pwrapps.isiapp.dto.RideDtoWithoutLinks;
 import com.berla.pwrapps.isiapp.model.Ride;
 
@@ -25,5 +23,11 @@ public interface RideService {
 
     void update(Long id, RideDtoWithoutLinks ride);
 
-    GetCostReturnDto getCost(GetCostDto getCostDto);
+    Double getCost(Double distance);
+
+    List<Ride> findByClientId(Long p);
+
+    String linkToDriver(long rideId, long driverId);
+
+    String linkToClient(long rideId, long clientId);
 }

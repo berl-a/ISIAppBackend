@@ -37,9 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_REGISTER_ENDPOINTS).permitAll()
+                .antMatchers("swagger-ui.html").permitAll()
                 .antMatchers(
                         "/ride/**"
-                ).hasAnyAuthority("ADMIN", "USER_APP")
+                ).hasAnyAuthority("ADMIN", "USER_APP", "DRIVER_APP")
                 .antMatchers(
                     "/ride/add",
                         "/ride/get",
